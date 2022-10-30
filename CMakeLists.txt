@@ -6,7 +6,7 @@ project(serenity LANGUAGES CXX VERSION 0.1)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR})
 
 file(GLOB src RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
@@ -23,6 +23,7 @@ endif()
 
 include_directories(
     "include"
+    "include/logger"
     "include/thirdparty"
     "include/thirdparty/glad"
     "include/thirdparty/glfw"
@@ -32,6 +33,17 @@ include_directories(
     "include/thirdparty/spdlog/fmt"
     "include/thirdparty/spdlog/fmt/bundled"
     "include/thirdparty/spdlog/sinks"
+    "include/thirdparty/nlohmann"
+    "include/thirdparty/nlohmann/thirdparty"
+    "include/thirdparty/nlohmann/thirdparty/hedley"
+    "include/thirdparty/nlohmann/detail"
+    "include/thirdparty/nlohmann/detail"
+    "include/thirdparty/nlohmann/detail/conversions"
+    "include/thirdparty/nlohmann/detail/input"
+    "include/thirdparty/nlohmann/detail/iterators"
+    "include/thirdparty/nlohmann/detail/meta"
+    "include/thirdparty/nlohmann/detail/output"
+    "include/thirdparty/nlohmann/detail/meta/call_std"
 )
 
 add_executable(${CMAKE_PROJECT_NAME} ${src})
