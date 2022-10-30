@@ -10,7 +10,7 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
 file(GLOB src RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/3rd_party/glad/glad.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/thirdparty/glad/glad.c"
     )
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
@@ -23,15 +23,15 @@ endif()
 
 include_directories(
     "include"
-    "include/3rd_party"
-    "include/3rd_party/glad"
-    "include/3rd_party/glfw"
-    "include/3rd_party/spdlog"
-    "include/3rd_party/spdlog/cfg"
-    "include/3rd_party/spdlog/details"
-    "include/3rd_party/spdlog/fmt"
-    "include/3rd_party/spdlog/fmt/bundled"
-    "include/3rd_party/spdlog/sinks"
+    "include/thirdparty"
+    "include/thirdparty/glad"
+    "include/thirdparty/glfw"
+    "include/thirdparty/spdlog"
+    "include/thirdparty/spdlog/cfg"
+    "include/thirdparty/spdlog/details"
+    "include/thirdparty/spdlog/fmt"
+    "include/thirdparty/spdlog/fmt/bundled"
+    "include/thirdparty/spdlog/sinks"
 )
 
 add_executable(${CMAKE_PROJECT_NAME} ${src})
