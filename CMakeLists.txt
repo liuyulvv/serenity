@@ -11,19 +11,20 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR})
 file(GLOB src RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/thirdparty/glad/glad.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/engine/*.cpp"
     )
 
-if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework OpenGL -framework Cocoa -framework IOKit")
     link_directories(
         "${CMAKE_CURRENT_SOURCE_DIR}/lib/mac"
     )
-endif()
+endif ()
 
 
 include_directories(
     "include"
-    "include/logger"
+    "include/engine"
     "include/thirdparty"
     "include/thirdparty/glad"
     "include/thirdparty/glfw"
