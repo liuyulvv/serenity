@@ -272,7 +272,7 @@ inline void from_json(const BasicJsonType& j, ConstructibleObjectType& obj) {
     std::transform(
         inner_object->begin(), inner_object->end(),
         std::inserter(ret, ret.begin()),
-        [](typename const BasicJsonType::object_t::value_type& p) {
+        [](typename BasicJsonType::object_t::value_type const& p) {
             return value_type(p.first, p.second.template get<typename ConstructibleObjectType::mapped_type>());
         });
     obj = std::move(ret);
