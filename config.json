@@ -1,0 +1,13 @@
+{
+  "log_name": "serenity",
+  "log_path": "log/",
+  "opengl_major_version": 3,
+  "opengl_minor_version": 3,
+  "window_width": 800,
+  "window_height": 600,
+  "window_title": "serenity",
+  "clear_color_red": 0.17,
+  "clear_color_green": 0.17,
+  "clear_color_blue": 0.17,
+  "clear_color_alpha": 1.0
+}
