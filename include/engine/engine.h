@@ -7,10 +7,9 @@
 
 #include <memory>
 
-#include "glad/glad.h"
-#include "glfw3.h"
 #include "json.hpp"
 #include "spdlog.h"
+#include "window.h"
 
 namespace serenity {
 
@@ -28,16 +27,9 @@ public:
     void Loop();
 
 private:
-    void ProcessInput();
-
-private:
     nlohmann::json config_;
     std::shared_ptr<spdlog::logger> logger_;
-    GLFWwindow* window_;
-    float clear_color_red_;
-    float clear_color_green_;
-    float clear_color_blue_;
-    float clear_color_alpha_;
+    std::shared_ptr<Window> window_;
 };
 
 }  // namespace serenity
