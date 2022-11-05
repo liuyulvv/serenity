@@ -7,8 +7,11 @@
 
 #include <memory>
 
+extern "C" {
 #include "glad/glad.h"
 #include "glfw3.h"
+}
+
 #include "json.hpp"
 #include "spdlog.h"
 
