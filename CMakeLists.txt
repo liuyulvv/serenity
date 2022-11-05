@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.23)
-project(serenity)
-
-project(serenity LANGUAGES CXX VERSION 0.1)
+project(serenity LANGUAGES C CXX VERSION 0.1)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -20,7 +18,6 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         "${CMAKE_CURRENT_SOURCE_DIR}/lib/mac"
     )
 endif ()
-
 
 include_directories(
     "include"
