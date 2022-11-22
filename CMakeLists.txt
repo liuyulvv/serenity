@@ -21,7 +21,9 @@ endif ()
 
 include_directories(
     "include"
+    "include/api"
     "include/engine"
+    "include/utils"
     "include/thirdparty"
     "include/thirdparty/glad"
     "include/thirdparty/glfw"
