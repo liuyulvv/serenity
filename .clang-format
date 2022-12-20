@@ -1,13 +1,9 @@
-# Use the Google style in this project.
 BasedOnStyle: Google
-
 IndentWidth: 4
 TabWidth: 4
 ColumnLimit: 0
-
 DerivePointerAlignment: true
 PointerAlignment: Left
 QualifierAlignment: Left
-
 IndentAccessModifiers: false
 AccessModifierOffset: -4
