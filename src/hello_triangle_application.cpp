@@ -85,7 +85,11 @@ private:
         vkGetPhysicalDeviceProperties(device, &device_properties);
         VkPhysicalDeviceFeatures device_features;
         vkGetPhysicalDeviceFeatures(device, &device_features);
+#if defined(__APPLE__)
+        return device_properties.deviceType == VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU;
+#else
         return device_properties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU && device_features.geometryShader != 0;
+#endif
     }
 
     void CreateInstance() {
@@ -103,6 +107,7 @@ private:
 
         VkInstanceCreateInfo create_info{};
         create_info.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
+        create_info.flags = VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
         create_info.pApplicationInfo = &app_info;
 
         auto extensions = GetRequiredExtensions();
@@ -159,9 +164,8 @@ private:
     }
 
     static VKAPI_ATTR VkBool32 VKAPI_CALL DebugCallback(VkDebugUtilsMessageSeverityFlagBitsEXT message_severity, VkDebugUtilsMessageTypeFlagsEXT message_type, const VkDebugUtilsMessengerCallbackDataEXT* callback_data, void* user_data) {
-        user_data;
-        message_type;
-        message_severity;
+        if (message_severity && message_type && user_data) {
+        }
         std::cerr << "Validation layer: " << callback_data->pMessage << std::endl;
         return VK_FALSE;
     }
@@ -174,6 +178,8 @@ private:
         if (ENABLE_VALIDATION_LAYERS) {
             extensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
         }
+        extensions.push_back(VK_KHR_GET_PHYSICAL_DEVICE_PROPERTIES_2_EXTENSION_NAME);
+        extensions.push_back(VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME);
         return extensions;
     }
 
@@ -190,7 +196,7 @@ private:
                     break;
                 }
             }
-            if (!layer_count) {
+            if (!layer_found) {
                 return false;
             }
         }
