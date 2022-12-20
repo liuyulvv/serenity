@@ -1,51 +1,41 @@
-cmake_minimum_required(VERSION 3.23)
-project(serenity LANGUAGES C CXX VERSION 0.1)
+cmake_minimum_required(VERSION 3.15)
+project(serenity LANGUAGES CXX VERSION 0.1)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR})
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
-file(GLOB src RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/thirdparty/glad/glad.c"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/engine/*.cpp"
+if (MSVC)
+    add_compile_options(/W4 /WX)
+    include_directories(
+        "D:/VulkanSDK/1.3.236.0/Include"
     )
-
-if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -framework OpenGL -framework Cocoa -framework IOKit")
     link_directories(
-        "${CMAKE_CURRENT_SOURCE_DIR}/lib/mac"
+        "D:/VulkanSDK/1.3.236.0/Lib"
     )
-endif ()
+else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
+    add_compile_options(-Wall -Wextra -pedantic -Werror)
+endif()
+
+set(glm_DIR glm/cmake/glm)
+find_package(glm REQUIRED)
+
+add_subdirectory(glm)
+
+file(GLOB srcs RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
 include_directories(
-    "include"
-    "include/api"
-    "include/engine"
-    "include/utils"
-    "include/thirdparty"
-    "include/thirdparty/glad"
-    "include/thirdparty/glfw"
-    "include/thirdparty/spdlog"
-    "include/thirdparty/spdlog/cfg"
-    "include/thirdparty/spdlog/details"
-    "include/thirdparty/spdlog/fmt"
-    "include/thirdparty/spdlog/fmt/bundled"
-    "include/thirdparty/spdlog/sinks"
-    "include/thirdparty/nlohmann"
-    "include/thirdparty/nlohmann/thirdparty"
-    "include/thirdparty/nlohmann/thirdparty/hedley"
-    "include/thirdparty/nlohmann/detail"
-    "include/thirdparty/nlohmann/detail"
-    "include/thirdparty/nlohmann/detail/conversions"
-    "include/thirdparty/nlohmann/detail/input"
-    "include/thirdparty/nlohmann/detail/iterators"
-    "include/thirdparty/nlohmann/detail/meta"
-    "include/thirdparty/nlohmann/detail/output"
-    "include/thirdparty/nlohmann/detail/meta/call_std"
+    "glfw/include"
 )
 
-add_executable(${CMAKE_PROJECT_NAME} ${src})
+link_directories(
+    "glfw/lib"
+)
 
-target_link_libraries(${CMAKE_PROJECT_NAME} glfw3 spdlog)
+foreach(src IN LISTS srcs)
+    get_filename_component(srcname ${src} NAME_WE)
+    add_executable(${srcname} ${src})
+    target_link_libraries(${srcname} vulkan-1 glfw3 glm::glm)
+endforeach()
