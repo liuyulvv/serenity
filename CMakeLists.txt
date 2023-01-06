@@ -7,7 +7,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
 if (MSVC)
-    add_compile_options(/W4 /WX)
+    add_compile_options(/W4)
     include_directories(
         "D:/VulkanSDK/1.3.236.0/Include"
     )
@@ -34,6 +34,7 @@ file(GLOB tests RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_D
 include_directories(
     "include"
     "nlohmann"
+    "spdlog"
     "glfw/include"
 )
 
