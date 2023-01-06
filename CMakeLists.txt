@@ -28,14 +28,12 @@ else()
     add_compile_options(-Wall -Wextra -pedantic -Werror)
 endif()
 
-set(glm_DIR glm/cmake/glm)
-find_package(glm REQUIRED)
-
-add_subdirectory(glm)
-
 file(GLOB srcs RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
+file(GLOB tests RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/test/*.cpp")
 
 include_directories(
+    "include"
+    "nlohmann"
     "glfw/include"
 )
 
@@ -43,12 +41,12 @@ link_directories(
     "glfw/lib"
 )
 
-foreach(src IN LISTS srcs)
-    get_filename_component(srcname ${src} NAME_WE)
-    add_executable(${srcname} ${src})
+foreach(test IN LISTS tests)
+    get_filename_component(testname ${test} NAME_WE)
+    add_executable(${testname} ${test} ${srcs})
     if (MSVC)
-        target_link_libraries(${srcname} vulkan-1 glfw3 glm::glm)
+        target_link_libraries(${testname} vulkan-1 glfw3)
     else()
-        target_link_libraries(${srcname} vulkan glfw3 glm::glm)
+        target_link_libraries(${testname} vulkan glfw3)
     endif()
 endforeach()
