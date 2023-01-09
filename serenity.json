@@ -1,0 +1,11 @@
+{
+    "log_name": "serenity",
+    "log_path": "log/",
+    "window_width": 800,
+    "window_height": 600,
+    "window_title": "serenity",
+    "clear_color_red": 0.17,
+    "clear_color_green": 0.17,
+    "clear_color_blue": 0.17,
+    "clear_color_alpha": 1.0
+}
